@@ -1,59 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Vasilenko_OrdersAPI.Services;
+using Vasilenko_OrdersAPI.Models;
 
 namespace Vasilenko_OrdersAPI.Controllers
 {
-    public class OrderController
-    {
-    }
-}
-/***********************************************************************/
-using Microsoft.AspNetCore.Mvc;
-using SiteCourse.Services;
-using TrainingCourses.Models;
-
-namespace TrainingCourses.Controllers
-{
     [Route("api/[controller]")]
-    public class CoursesController : Controller
+    public class OrdersController : Controller
     {
-        private readonly ICourse _course;
-        public CoursesController(ICourse course)
+        private readonly IOrder _order;
+        public OrdersController(IOrder order)
         {
-            _course = course;
+            _order = order;
         }
-        // GET api/courses
+        // GET api/orders
         [HttpGet]
-        public IEnumerable<Course> Get()
+        public IEnumerable<Order> Get()
         {
-            return _course.GetAll();
+            return _order.GetAll();
         }
         // GET api/courses/3
         [HttpGet("{id}")]
-        //public Course Get(int id)
+        //public Order Get(int id)
         //{
-        //    return _course.Get(id);
+        //    return _order.Get(id);
         //}
         public IActionResult Get(int id)
         {
-            var course = _course.Get(id);
-            if (course == null || course.Id == -1)
+            var order = _order.Get(id);
+            if (order == null || order.Id == -1)
                 return NotFound();
-            return new ObjectResult(course);
+            return new ObjectResult(order);
         }
-        // POST api/courses
+        // POST api/orders
         [HttpPost]
-        //public int Post([FromBody] Course course)
+        //public int Post([FromBody] Order order)
         //{
-        //    return _course.Add(course);
+        //    return _order.Add(order);
         //}
-        public IActionResult Post([FromBody] Course course)
+        public IActionResult Post([FromBody] Order order)
         {
             // обработка частных случаев валидации
-            if (course.Hours == 3)
-                ModelState.AddModelError("Hours", "Количество часов не должно быть равно 3");
-            if (course.Title.ToLower().IndexOf("нумерология") > -1)
+            if (order.Cena == 3)
+                ModelState.AddModelError("Cena", " не может быть равно 3");
+            if (order.Buer.ToLower().IndexOf("Неликвид") > -1)
             {
-                ModelState.AddModelError("Title", "Недопустимое наименование курса - Нумерология");
+                ModelState.AddModelError("Buer", "Недопустимое наименование - Неликвид");
             }
             // если есть ошибки - возвращаем ошибку 400
             if (!ModelState.IsValid)
@@ -69,7 +60,7 @@ namespace TrainingCourses.Controllers
             int newId = 0;
             try
             {
-                newId = _course.Add(course);
+                newId = _order.Add(order);
             }
             catch (Exception ex)
             {
@@ -77,20 +68,20 @@ namespace TrainingCourses.Controllers
             }
             return Ok(newId);
         }
-        // PUT api/courses/3
+        // PUT api/orders/3
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Course model)
+        public void Put(int id, [FromBody] Order model)
         {
-            var course = _course.Get(id);
-            course.Title = model.Title; course.Hours = model.Hours;
-            _course.Save(course);
+            var order = _order.Get(id);
+            order.Buer = model.Buer; order.Cena = model.Cena;
+            _order.Save(order);
         }
         // DELETE api/courses/3
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var course = _course.Get(id);
-            _course.Delete(course);
+            var order = _order.Get(id);
+            _order.Delete(order);
         }
     }
 }
