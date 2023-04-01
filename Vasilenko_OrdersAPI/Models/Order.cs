@@ -4,13 +4,13 @@ namespace Vasilenko_OrdersAPI.Models
 {
     public sealed class Order
     {
-        public int /* Guid */Id { get; set; } //Идентификатор
-      /*  [Required(ErrorMessage = "Укажите наименование курса")]  */
-        public string Buer/* Title */ { get; set; } = string.Empty; //Название курса
-        /*    [Range(1, 300, ErrorMessage = "Количество часов должно быть в промежутке от 1 до 300")]
-            [Required(ErrorMessage = "Укажите количество часов")]  */
-        public int Cena { get; set; } 
-        public decimal Total { get; set; }
+        public int /* Guid */ Id { get; set; }   //Идентификатор
+
+        public string ProductName/* Title */ { get; set; } = string.Empty; //Название
+
+        public int ProductPrice { get; set; }
+        public int Quantity { get; set; }
+        public decimal TotalPrice { get; set; }
         public Order()
         { 
         

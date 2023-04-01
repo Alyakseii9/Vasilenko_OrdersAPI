@@ -40,11 +40,11 @@ namespace Vasilenko_OrdersAPI.Controllers
         public IActionResult Post([FromBody] Order order)
         {
             // обработка частных случаев валидации
-            if (order.Cena == 3)
-                ModelState.AddModelError("Cena", " не может быть равно 3");
-            if (order.Buer.ToLower().IndexOf("Неликвид") > -1)
+            if (order.ProductPrice == 3)
+                ModelState.AddModelError("ProductPrice", " не может быть равно 3");
+            if (order.ProductName.ToLower().IndexOf("Неликвид") > -1)
             {
-                ModelState.AddModelError("Buer", "Недопустимое наименование - Неликвид");
+                ModelState.AddModelError("ProductName", "Недопустимое наименование - Неликвид");
             }
             // если есть ошибки - возвращаем ошибку 400
             if (!ModelState.IsValid)
@@ -73,7 +73,7 @@ namespace Vasilenko_OrdersAPI.Controllers
         public void Put(int id, [FromBody] Order model)
         {
             var order = _order.Get(id);
-            order.Buer = model.Buer; order.Cena = model.Cena;
+            order.ProductName = model.ProductName; order.ProductPrice = model.ProductPrice;
             _order.Save(order);
         }
         // DELETE api/courses/3

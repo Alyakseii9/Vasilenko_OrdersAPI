@@ -21,6 +21,18 @@
 using Vasilenko_OrdersAPI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
+//Подключение сервисов
+builder.Services.AddSingleton<IGuidServices, GuidService>();
+builder.Services.AddSingleton<UidService>();
+var app = builder.Build();
+
+app.MapGet("/", async context =>
+{
+    IGuidServices guid = context.RequestServices.GetRequiredService<IGuidServices>();
+    UidService uid = context.RequestServices.GetRequiredService<UidService>();
+    await context.Response.WriteAsync($"guid: {guid.Value}, uid: {uid.GUID.Value}");
+});
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -29,7 +41,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IOrder, MockOrder>();
 builder.Services.AddControllers();
 
-var app = builder.Build();
+/*  var app = builder.Build();  */
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

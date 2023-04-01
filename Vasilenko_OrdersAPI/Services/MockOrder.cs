@@ -9,9 +9,9 @@ namespace Vasilenko_OrdersAPI.Services
         {
             _order = new List<Order>
             {
-                new Order{Id = 1, Buer = "Материалы", Cena = 30 },
-                new Order{Id = 2, Buer ="Комплектующие", Cena = 45},
-                new Order{Id = 3, Buer ="Расходники", Cena = 60}
+                new Order{Id = 1, ProductName = "Материалы", ProductPrice = 30 },
+                new Order{Id = 2, ProductName ="Комплектующие", ProductPrice = 45},
+                new Order{Id = 3, ProductName ="Расходники", ProductPrice = 60}
             };
         }
         public IEnumerable<Order> GetAll()
@@ -30,7 +30,7 @@ namespace Vasilenko_OrdersAPI.Services
         }
         public void Save(Order order)
         {
-            _order.Where(p => p.Id == order.Id).ToList().ForEach(x => { x.Buer = order.Buer; x.Cena = order.Cena; });
+            _order.Where(p => p.Id == order.Id).ToList().ForEach(x => { x.ProductName = order.ProductName; x.ProductPrice = order.ProductPrice; });
         }
         public void Delete(Order order)
         {
