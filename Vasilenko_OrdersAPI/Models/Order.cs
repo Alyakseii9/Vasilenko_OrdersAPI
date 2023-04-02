@@ -4,9 +4,9 @@ namespace Vasilenko_OrdersAPI.Models
 {
     public sealed class Order
     {
-        public int /* Guid */ Id { get; set; }   //Идентификатор
+        public int  Id { get; set; }  
 
-        public string ProductName/* Title */ { get; set; } = string.Empty; //Название
+        public string ProductName { get; set; } = string.Empty; 
 
         public int ProductPrice { get; set; }
         public int Quantity { get; set; }

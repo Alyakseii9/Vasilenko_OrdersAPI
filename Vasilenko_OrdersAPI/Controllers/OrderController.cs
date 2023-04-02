@@ -18,7 +18,7 @@ namespace Vasilenko_OrdersAPI.Controllers
         {
             return _order.GetAll();
         }
-        // GET api/courses/3
+        // GET api/orders/3
         [HttpGet("{id}")]
         //public Order Get(int id)
         //{
@@ -76,7 +76,7 @@ namespace Vasilenko_OrdersAPI.Controllers
             order.ProductName = model.ProductName; order.ProductPrice = model.ProductPrice;
             _order.Save(order);
         }
-        // DELETE api/courses/3
+        // DELETE api/orders/3
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
